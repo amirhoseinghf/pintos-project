@@ -11,6 +11,7 @@
 #include "threads/switch.h"
 #include "threads/synch.h"
 #include "threads/vaddr.h"
+
 #ifdef USERPROG
 #include "userprog/process.h"
 #endif
@@ -590,12 +591,3 @@ allocate_tid (void)
 uint32_t thread_stack_ofs = offsetof (struct thread, stack);
 
 
-// My Code
-void
-thread_set_sleeping (int64_t ticks)
-{
-  struct thread *cur = thread_current();
-  cur->remaining_time_to_wake_up = ticks;
-  list_push_back (&sleeping_list, &cur->sleepelem);
-  thread_block();
-}
